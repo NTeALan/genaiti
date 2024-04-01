@@ -15,9 +15,10 @@ class PostMessageHandler(BaseCallbackHandler):
         self.sources = set()  # To store unique pairs
 
     def on_retriever_end(self, documents, *, run_id, parent_run_id, **kwargs):
-        for d in documents:
-            source_page_pair = (d.metadata['source'], d.metadata['page'])
-            self.sources.add(source_page_pair)  # Add unique pairs to the set
+        if len(documents) >= 1:
+            for d in documents:
+                source_page_pair = (d.metadata['source'], d.metadata['page'])
+                self.sources.add(source_page_pair)  # Add unique pairs to the set
 
     def on_llm_end(self, response, *, run_id, parent_run_id, **kwargs):
         if len(self.sources):

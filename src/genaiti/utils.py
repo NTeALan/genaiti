@@ -4,9 +4,9 @@ from typing import Any, Dict, List
 import json
 
 INTERMEDIATE_STEPS_KEY = "intermediate_steps"
-resp_re = re.compile(r">(Helpful\s+Answer|Réponse\s+utile|>Cypher query:):\s+")
-qa_re = re.compile(r">(Helpful\s+Answer|Réponse\s+utile|>Cypher query:):")
-info_check = re.compile(r"(\n\n.+Information|\n\n\n.+|>.+)")
+resp_re = re.compile(r"(Answer|Réponse|>Cypher query|or)=")
+qa_re = re.compile(r"(Answer|Réponse|>Cypher query|or|Useful Answer)=")
+info_check = re.compile(r"(\n\n.+Information|\n\n\n.+|>.+|or|Question=)")
 remover = re.compile(r"(<br.+>|>\n+|<\n+)")
 
 __all__ = ["extract_cypher", "get_response_from_generator", "construct_schema",
@@ -46,9 +46,11 @@ def extract_cypher(text: str) -> str:
 def get_response_from_generator(generator, sep=resp_re):
     split_generated_cypher = sep.split(generator, re.IGNORECASE)
     if len(split_generated_cypher) >= 1:
-        if info_check.search(split_generated_cypher[-1]):
-            return remover.sub("", info_check.split(split_generated_cypher[-1])[0])
-        else: return split_generated_cypher[-1]
+        f_info_check = info_check.split(split_generated_cypher[0])
+        if len(f_info_check) >= 1:
+            print(split_generated_cypher[0], f_info_check)
+            return remover.sub("", info_check.split(f_info_check[0])[0])
+        else: return split_generated_cypher[0]
     else: return generator
 
 

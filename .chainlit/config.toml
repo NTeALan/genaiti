@@ -57,7 +57,7 @@ default_expand_messages = false
 hide_cot = false
 
 # Link to your github repo. This will add a github button in the UI's header.
-github = "https://github.com/NTeALan/Genaiti"
+github = "https://github.com/NTeALan/genaiti"
 
 # Specify a CSS file that can be used to customize the user interface.
 # The CSS file can be served from the public directory or via an external link.
@@ -72,25 +72,29 @@ custom_font = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&d
 
 # Override default MUI light theme. (Check theme.ts)
 [UI.theme]
-    #font_family = "Inter, sans-serif"
+    font_family = "Inter, sans-serif"
 [UI.theme.light]
     #background = "#FAFAFA"
     #paper = "#FFFFFF"
 
     [UI.theme.light.primary]
-        #main = "#F80061"
-        #dark = "#980039"
-        #light = "#FFE7EB"
+        main = "#a52a2a"
+        dark = "#980039"
+        light = "#FFE7EB"
+    [UI.theme.light.secondary]
+        main = "#a52a2a"
+        dark = "#980039"
+        light = "#FFE7EB"
 
 # Override default MUI dark theme. (Check theme.ts)
 [UI.theme.dark]
-    #background = "#FAFAFA"
-    #paper = "#FFFFFF"
+    background = "#FAFAFA"
+    paper = "#FFFFFF"
 
     [UI.theme.dark.primary]
-        #main = "#F80061"
-        #dark = "#980039"
-        #light = "#FFE7EB"
+        main = "#a52a2a"
+        dark = "#980039"
+        light = "#FFE7EB"
 
 
 [meta]
