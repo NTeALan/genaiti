@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "genai_graph_dictionary"
+version = "0.1.0"
+description = "Generative AI based neo4j graph to enhance dictionary's queries"
+authors = ["Elvis MBONING <levismboning@ntealan.org>"]
+license = "Apache"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain = "^0.1.13"
+chainlit = "^1.0.401"
+neo4j = "^5.18.0"
+huggingface-hub = "^0.22.2"
+langfuse = "^2.21.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

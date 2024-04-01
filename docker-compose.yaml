@@ -1,0 +1,44 @@
+version: '3'
+services:
+  # db services
+  graph_db:
+    image: neo4j:5.5.0
+    hostname: graph_db
+    networks:
+      - nais-network
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ${NEO4J_DATA_DIR}/plugins:/plugins
+      - ${NEO4J_DATA_DIR}/data:/data
+      - ${NEO4J_DATA_DIR}/conf:/conf
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7474"]
+      interval: 20s
+      timeout: 10s
+      retries: 6
+    environment:
+      NEO4J_AUTH: neo4j/naispass
+      #NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_logs_debug_level: INFO
+
+  genaiti_app:
+    build: 
+      context: .
+    hostname: genaiti_app
+    networks:
+      - nais-network
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 20s
+      timeout: 10s
+      retries: 6
+
+networks:
+  nais-network:
+    driver: bridge
