@@ -1,24 +1,22 @@
 <p align="center">
     <br><br><br>
-    <a href="https://github.com/NTeALan/Genaiti"><img src="" alt="Genaiti" width="150px"/></a>
-    <br><br><br>
+    <a href="https://github.com/NTeALan/Genaiti"><img src="./public/logo_dark.png" alt="Genaiti" width="200px"/></a>
+    <br><br>
 </p>
+
 <p align="center">
-    <b style="color:#D84727; font-size:30px">Genaiti</b>
-</p>
-<p align="center">
-    <span>This tool is use to experiment how we can use generate IA to enhance search capabilities in a african lexicographic graph database build with Neo4j.</span><br>
-    <p align="center">Project from <b>NTeALan Research and Development</b></p>
+    <span><b style="color:#D84727; font-size:18px">Genaiti</b>  tool experiments how we can use generative IA to enhance search capabilities in africa lexicographic graph database built with Neo4j.</span><br>
+    <p align="center">Project from <b>NTeALan Research and Development</b> (Démo version)</p>
 </p>
 
 <p align="center">
     <a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" alt="creativecommons" width="110px">
     <p>
-    <b>Security note</b>: 
+    <b>Security note</b>: <br>
     Make sure that the database connection uses credentials
     that are narrowly-scoped to only include necessary permissions.
     Failure to do so may result in data corruption or loss, since the calling code may attempt commands that would result in deletion, mutation of data if appropriately prompted or reading sensitive data if such data is present in the database.
-    The best way to guard against such negative outcomes is to (as appropriate) limit the permissions granted to the credentials used with this tool. 
+    The best way to guard against such negative outcomes is to (as appropriate) limit the permissions granted to the credentials used with this tool. <br>
     See https://python.langchain.com/docs/security for more information.
     </p>
 </p>
@@ -38,32 +36,28 @@ NTeAlan project aims to provide lexical, cultural and tools for under-resource a
 NTeALan has builded 5 years ago many lexicographic resources and tools for african languages.
 
 - Resources are hosted and shared in : `https://apis.ntealan.net`
-- Collaborative dictionaries is hosted in : `https://www.ntealan.net`
+- Collaborative dictionaries are hosted in : `https://www.ntealan.net`
 
 
 # Problem behind this package 
 
-NTeALan want to switch relational to graph representation of its lexicographic database. Because the 
-structure of its dictionaries are more complex to build, use default cypher command can be so complex
+NTeALan wants to switch relational to graph representation of its lexicographic databases. Because the  structure of its dictionaries are more complex to build, use default cypher command can be so complex
 for non expert. The evidence is that, query large graph knowledge is very hard to understand and transpose to Neo4j Cypher command.
 
-We want to explore the advantage of generate AI in other to simplify neo4j graph query for our database
-purpose. 
-
+We want to explore the advantage of generate AI in other to simplify neo4j graph query for our database purpose. 
 
 This Python package, build with `langchain` and `chainlit`, is used to demonstrate an simple implementation to resolve this problem. 
-
 
 This project can be apply to other type of neo4j database.
 
 
 # Installation
 
-This project use `poetry` python package.
+This project uses `poetry` python package.
 
 ## prerequis
 
-This project use these necessary tools :
+This project uses these necessary tools :
 
 - docker
 - docker-compose
@@ -134,7 +128,6 @@ docker build -t genaiti:latest .
 docker-compose up
 
 ```
-
 
 
 # Update prompt
