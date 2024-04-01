@@ -1,7 +1,7 @@
 <p align="center">
     <br><br><br>
-    <a href="https://github.com/NTeALan/Genaiti"><img src="./public/logo_dark.png" alt="Genaiti" width="200px"/></a>
-    <br><br>
+    <a href="https://github.com/NTeALan/Genaiti"><img src="./public/logo_dark.png" alt="Genaiti" width="300px"/></a>
+    <br>
 </p>
 
 <p align="center">
