@@ -217,7 +217,6 @@ class GraphCypherQAChain(Chain):
 
         intermediate_steps: List = []
 
-        #print("cypher_generation_chain: ", {"question": question, "schema": self.graph_schema})
         # get cypher command based of user question
         is_can_be_cypher_command = self.checker_chain.run(
             {"question": question}, 
@@ -231,16 +230,14 @@ class GraphCypherQAChain(Chain):
             _run_manager.on_text(
                 is_can_be_cypher_command, color="green", end="\n", verbose=self.verbose
             )
-            result = self.qa_chain(
+            result = self.qa_chain.run(
                 {"question": question, "context": ""},
                 callbacks=callbacks,
             )
-            print(result)
             final_result = get_response_from_generator(result["text"], qa_re)
             chain_result: Dict[str, Any] = {self.output_key: final_result}
             return chain_result
             
-
         # get cypher command based of user question
         generated_cypher = self.cypher_generation_chain.run(
             {"question": question, "schema": self.graph_schema}, 
@@ -248,7 +245,6 @@ class GraphCypherQAChain(Chain):
         )
 
         generated_cypher = get_response_from_generator(generated_cypher)
-        # print(generated_cypher)
         # Extract Cypher code if it is wrapped in backticks
         generated_cypher = extract_cypher(generated_cypher)
 
@@ -257,26 +253,28 @@ class GraphCypherQAChain(Chain):
         # Correct Cypher query if enabled
         if self.cypher_query_corrector:
             generated_cypher = self.cypher_query_corrector(generated_cypher)
-            print("cypher_query_corrector: ", generated_cypher)
 
         _run_manager.on_text("Generated Cypher:", end="\n", verbose=self.verbose)
         _run_manager.on_text(
             generated_cypher, color="green", end="\n", verbose=self.verbose
         )
-
         intermediate_steps.append({"query": generated_cypher})
 
         # Retrieve and limit the number of results
         # Generated Cypher be null if query corrector identifies invalid schema
         if generated_cypher:
-            context = self.graph.query(generated_cypher)[: self.top_k]
-        else:
-            context = []
+            try:
+                context = self.graph.query(generated_cypher)[: self.top_k]
+            except:
+                chain_result: Dict[str, Any] = {self.output_key: 
+                    "Je ne peux pas obtenir de réponse avec la requète Cypher générée. <br> Exception générée dans le graphe."}
+                return chain_result
+        else: context = []
 
         if self.return_direct:
             final_result = context
         else:
-            print("context", context)
+            # print("context", context)
             _run_manager.on_text("Full Context:", end="\n", verbose=self.verbose)
             _run_manager.on_text(
                 str(context), color="green", end="\n", verbose=self.verbose
@@ -284,10 +282,11 @@ class GraphCypherQAChain(Chain):
 
             intermediate_steps.append({"context": context})
 
-            result = self.qa_chain.run(
+            result = self.qa_chain(
                 {"question": question, "context": context},
                 callbacks=callbacks,
             )
+            print(result)
             final_result = result[self.qa_chain.output_key]
 
             final_result = get_response_from_generator(final_result, qa_re)
