@@ -25,4 +25,4 @@ For each question asked, we need to :
 
 You can contribute to the project on Github
 
-Please follow this link : 
+Please follow this link : [https://github.com/NTeALan/genaiti](https://github.com/NTeALan/genaiti)
